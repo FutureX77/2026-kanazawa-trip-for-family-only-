@@ -1,0 +1,672 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@400;500&display=swap');
+
+  .itinerary-wrap {
+    font-family: 'Noto Sans JP', sans-serif;
+    max-width: 680px;
+    margin: 0 auto;
+    color: var(--color-text-primary);
+    padding: 0 0 2rem;
+  }
+
+  .cover {
+    background: linear-gradient(160deg, #1a3a2e 0%, #0f2820 100%);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -20px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.3rem;
+    line-height: 1.2;
+  }
+
+  .cover-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cover-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .cover-meta-item i {
+    font-size: 15px;
+    color: #5DCAA5;
+  }
+
+  .hotel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.1);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 99px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 1rem;
+  }
+
+  .hotel-badge i { color: #FAC775; font-size: 14px; }
+
+.hero-image{
+  margin-bottom:18px;
+}
+
+.hero-image img{
+  width:100%;
+  display:block;
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+  .day-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .day-badge {
+    background: #0f6e56;
+    color: #fff;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .day-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .day-date {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .timeline {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--color-border-tertiary);
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .tl-dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 15px;
+    z-index: 1;
+  }
+
+  .dot-green { background: #E1F5EE; color: #0F6E56; }
+  .dot-amber { background: #FAEEDA; color: #854F0B; }
+  .dot-blue  { background: #E6F1FB; color: #185FA5; }
+  .dot-pink  { background: #FBEAF0; color: #993556; }
+  .dot-coral { background: #FAECE7; color: #993C1D; }
+  .dot-gray  { background: #F1EFE8; color: #5F5E5A; }
+
+  .tl-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 10px 14px;
+    flex: 1;
+  }
+
+  .tl-card:hover {
+    border-color: var(--color-border-secondary);
+  }
+
+  .tl-time {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 2px;
+  }
+
+  .tl-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 3px;
+  }
+
+  .tl-desc {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    border: 0.5px solid;
+  }
+
+  .tag-walk   { color: #185FA5; border-color: #B5D4F4; background: #E6F1FB; }
+  .tag-bus    { color: #854F0B; border-color: #FAC775; background: #FAEEDA; }
+  .tag-food   { color: #993556; border-color: #F4C0D1; background: #FBEAF0; }
+  .tag-sight  { color: #0F6E56; border-color: #9FE1CB; background: #E1F5EE; }
+  .tag-hotel  { color: #533AB7; border-color: #CECBF6; background: #EEEDFE; }
+  .tag-paid   { color: #5F5E5A; border-color: #D3D1C7; background: #F1EFE8; }
+  .tag-free   { color: #3B6D11; border-color: #C0DD97; background: #EAF3DE; }
+
+  .section-divider {
+    border: none;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    margin: 1.25rem 0;
+  }
+
+  .tip-box {
+    background: #E1F5EE;
+    border-left: 3px solid #0F6E56;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    padding: 10px 14px;
+    margin: 1rem 0;
+  }
+
+  .tip-box p {
+    font-size: 12px;
+    color: #085041;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .tip-box strong { font-weight: 500; }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  .summary-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 12px;
+    text-align: center;
+  }
+
+  .summary-num {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .summary-label {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    padding-bottom: 0;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    margin-bottom: -0.5px;
+    transition: color 0.15s;
+  }
+
+  .tab-btn.active {
+    color: #0f6e56;
+    border-bottom-color: #0f6e56;
+    font-weight: 500;
+  }
+
+  .day-panel { display: none; }
+  .day-panel.active { display: block; }
+</style>
+
+<div class="itinerary-wrap">
+  <div class="hero-image">
+    <img src="kanazawa-header.png" alt="金沢旅行のしおり">
+  </div>
+<div style="background:#f5f8fc;border:1px solid #d8e2f0;border-radius:12px;padding:18px;margin-bottom:18px;">
+<h3 style="margin-top:0;">🗾 今回の旅はどこへ行く？</h3>
+<p><strong>千葉県 → 羽田空港 → 小松空港 → 金沢市</strong></p>
+<p>金沢市は石川県の県庁所在地で、日本海側の「北陸地方」にあります。</p>
+
+<h4>✈️ 飛行機スケジュール</h4>
+<ul>
+<li>6/15　羽田空港 9:45発 → 小松空港 10:45着</li>
+<li>6/17　小松空港 17:05発 → 羽田空港 18:25着</li>
+</ul>
+
+<h4>📍 位置関係</h4>
+<pre style="white-space:pre-wrap;font-size:14px;">
+千葉県
+  ↓
+羽田空港
+  ↓ ✈ 約1時間
+小松空港
+  ↓ 🚌 約40分
+金沢市
+</pre>
+
+<h4>🗺️ 金沢市内で巡る場所</h4>
+<pre style="white-space:pre-wrap;font-size:13px;">
+      東茶屋街
+          ●
+          │
+      近江町市場
+          ●
+          │
+金沢駅 ●────● ホテル山楽
+                │
+      兼六園 ●─● 金沢城
+                │
+      21世紀美術館
+                │
+      長町武家屋敷
+                │
+      西茶屋街
+</pre>
+</div>
+
+  <h2 class="sr-only">金沢旅行しおり 2026年6月15日〜17日</h2>
+
+<div class="itinerary-wrap">
+
+  <div class="hero-image">
+    <img src="kanazawa-header.png" alt="金沢旅行のしおり">
+  </div>
+
+  <!-- ここから旅の概要 -->
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchDay('d1')">6/15（月）出発</button>
+    <button class="tab-btn" onclick="switchDay('d2')">6/16（火）観光</button>
+    <button class="tab-btn" onclick="switchDay('d3')">6/17（水）帰路</button>
+    <button class="tab-btn" onclick="switchDay('info')">ℹ️ 旅のメモ</button>
+  </div>
+
+  <div id="d1" class="day-panel active">
+    <div class="day-header">
+      <span class="day-badge">Day 1</span>
+      <p class="day-title">金沢到着・東茶屋街と近江町</p>
+      <span class="day-date">6月15日（月）</span>
+    </div>
+
+    <ul class="timeline">
+      <li class="tl-item">
+        <div class="tl-dot dot-gray"><i class="ti ti-train" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">午前</div>
+          <div class="tl-name">金沢駅 到着</div>
+          <p class="tl-desc">金沢駅の名物・鼓門（つづみもん）でまず一枚。巨大な木製アーチが出迎えてくれます。荷物はホテルへ預けてからスタート。</p>
+          <div class="tl-tags"><span class="tag tag-free">入場無料</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">11:30 ごろ</div>
+          <div class="tl-name">近江町市場でランチ</div>
+          <p class="tl-desc">「金沢の台所」で日本海の海鮮を堪能。ノドグロや甘エビの海鮮丼、カニが名物。混雑前の11時台がおすすめ。現金も持参を。</p>
+          <div class="tl-tags"><span class="tag tag-food">グルメ</span><span class="tag tag-bus">バス移動</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-pink"><i class="ti ti-home" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">13:30 ごろ</div>
+          <div class="tl-name">東茶屋街（ひがし茶屋街）散策</div>
+          <p class="tl-desc">江戸時代から続く茶屋の街並み。金箔ソフトクリームや和菓子、伝統工芸品のショッピングが楽しめます。着物レンタルで雰囲気を楽しむのもおすすめ。</p>
+          <div class="tl-tags"><span class="tag tag-free">無料散策</span><span class="tag tag-sight">文化・観光</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-blue"><i class="ti ti-building-arch" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">15:00 ごろ</div>
+          <div class="tl-name">主計町茶屋街（かずえまち）へ</div>
+          <p class="tl-desc">東茶屋街から徒歩圏内。浅野川沿いの静かな茶屋街で、より落ち着いた雰囲気が楽しめます。橋の上から眺める景色が特に美しい。</p>
+          <div class="tl-tags"><span class="tag tag-walk">徒歩</span><span class="tag tag-free">無料</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-green"><i class="ti ti-building-skyscraper" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">16:30 ごろ</div>
+          <div class="tl-name">ホテル チェックイン</div>
+          <p class="tl-desc">金沢白鳥路 ホテル山楽（兼六園・金沢城まで徒歩すぐ）。温泉大浴場でひと息ついてからディナーへ。</p>
+          <div class="tl-tags"><span class="tag tag-hotel">宿泊</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-fork-spoon" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">19:00 ごろ</div>
+          <div class="tl-name">夕食 — 香林坊・片町エリアへ</div>
+          <p class="tl-desc">ホテルから徒歩圏内の繁華街。加賀料理（治部煮など）の居酒屋や、新鮮な海鮮を出す寿司店が豊富。予約推奨。</p>
+          <div class="tl-tags"><span class="tag tag-food">ディナー</span><span class="tag tag-walk">徒歩</span></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div id="d2" class="day-panel">
+    <div class="day-header">
+      <span class="day-badge">Day 2</span>
+      <p class="day-title">兼六園・金沢城・長町武家屋敷と21美</p>
+      <span class="day-date">6月16日（火）</span>
+    </div>
+
+    <div class="tip-box">
+      <p>☀️ <strong>6月のメモ：</strong>梅雨の時期ですが、兼六園は雨の日でも緑が美しく幻想的です。折りたたみ傘を忘れずに。兼六園は朝7時から開園。早朝が空いていておすすめです。</p>
+    </div>
+
+    <ul class="timeline">
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">7:30</div>
+          <div class="tl-name">ホテルにて朝食</div>
+          <p class="tl-desc">朝食付きプランをゆっくり楽しんでから出発。</p>
+          <div class="tl-tags"><span class="tag tag-hotel">朝食込み</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-green"><i class="ti ti-trees" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">8:30 〜 10:00</div>
+          <div class="tl-name">兼六園</div>
+          <p class="tl-desc">日本三名園のひとつ。6月は花菖蒲や紫陽花が見頃。霞ヶ池、ことじ灯籠など写真映えスポットが多数。ホテルから徒歩約5分。</p>
+          <div class="tl-tags"><span class="tag tag-sight">庭園</span><span class="tag tag-paid">入場料あり</span><span class="tag tag-walk">徒歩</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-blue"><i class="ti ti-building-castle" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">10:15 〜 11:30</div>
+          <div class="tl-name">金沢城公園</div>
+          <p class="tl-desc">兼六園に隣接。白い鉛瓦の城壁が美しい。石川門や菱櫓などを見学。再建工事が進んでいますが十分見応えあり。</p>
+          <div class="tl-tags"><span class="tag tag-sight">城・歴史</span><span class="tag tag-free">入城無料</span><span class="tag tag-walk">徒歩</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-coral"><i class="ti ti-sword" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">12:00 〜 13:00</div>
+          <div class="tl-name">長町武家屋敷跡 散策</div>
+          <p class="tl-desc">土塀と石畳の武家屋敷が残る静かなエリア。野村家などの武家屋敷を見学できます。江戸時代の空気が残る風情ある街並み。</p>
+          <div class="tl-tags"><span class="tag tag-sight">文化・歴史</span><span class="tag tag-walk">徒歩</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">13:00 〜 14:00</div>
+          <div class="tl-name">ランチ — 香林坊・竪町エリア</div>
+          <p class="tl-desc">長町周辺のカフェやレストランで昼食。金沢カレーや能登丼、加賀野菜を使ったランチも人気。</p>
+          <div class="tl-tags"><span class="tag tag-food">ランチ</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-pink"><i class="ti ti-frame" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">14:30 〜 16:30</div>
+          <div class="tl-name">金沢21世紀美術館</div>
+          <p class="tl-desc">現代アートの聖地。無料ゾーンだけでも十分楽しめます。名作「スイミング・プール」（レアンドロ・エルリッヒ）は要事前予約。月曜休館のため火曜は通常通り開館。</p>
+          <div class="tl-tags"><span class="tag tag-sight">アート</span><span class="tag tag-walk">徒歩</span><span class="tag tag-free">無料ゾーンあり</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-green"><i class="ti ti-droplet" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">17:00 ごろ</div>
+          <div class="tl-name">ホテルに戻り温泉でリラックス</div>
+          <p class="tl-desc">ホテル山楽の温泉大浴場で旅の疲れを癒やします。</p>
+          <div class="tl-tags"><span class="tag tag-hotel">温泉</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-fork-spoon" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">19:00 ごろ</div>
+          <div class="tl-name">夕食 — 加賀料理または鮨</div>
+          <p class="tl-desc">金沢ならではの加賀料理（治部煮、じぶ鍋）や地元の鮨屋でディナー。予算に応じてカウンター鮨もおすすめ。前日とは違うエリアやジャンルを試してみては。</p>
+          <div class="tl-tags"><span class="tag tag-food">ディナー</span></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div id="d3" class="day-panel">
+    <div class="day-header">
+      <span class="day-badge">Day 3</span>
+      <p class="day-title">西茶屋街・鈴木大拙館・帰路</p>
+      <span class="day-date">6月17日（水）</span>
+    </div>
+
+    <ul class="timeline">
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">7:30</div>
+          <div class="tl-name">ホテルにて朝食・チェックアウト準備</div>
+          <p class="tl-desc">ゆっくり朝食。荷物はフロントに預けてから最終観光へ出発。</p>
+          <div class="tl-tags"><span class="tag tag-hotel">朝食込み</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-blue"><i class="ti ti-brain" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">9:30 〜 11:00</div>
+          <div class="tl-name">鈴木大拙館（D.T.スズキミュージアム）</div>
+          <p class="tl-desc">禅の思想家・鈴木大拙を記念した美術館。水鏡に映る建築が圧巻の静謐な空間。訪れた多くの人が「人生で最も平和な場所」と称します。月曜休館・火曜は通常開館。</p>
+          <div class="tl-tags"><span class="tag tag-sight">文化・哲学</span><span class="tag tag-bus">バス移動</span><span class="tag tag-paid">入場料あり</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-pink"><i class="ti ti-home" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">11:00 〜 12:00</div>
+          <div class="tl-name">西茶屋街（にし茶屋街）</div>
+          <p class="tl-desc">東茶屋街より小ぶりで静かな茶屋街。観光客が少なく落ち着いた雰囲気。近くに寺町エリアもあり、寺院が点在する風景が楽しめます。</p>
+          <div class="tl-tags"><span class="tag tag-sight">茶屋街</span><span class="tag tag-free">無料</span><span class="tag tag-bus">バス</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-amber"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">12:00 〜 13:00</div>
+          <div class="tl-name">近江町市場 or 駅周辺でランチ</div>
+          <p class="tl-desc">金沢最後の食事。近江町市場か、金沢駅構内の「百番街」でお土産兼ねて海鮮丼やお弁当も。</p>
+          <div class="tl-tags"><span class="tag tag-food">最後のランチ</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-green"><i class="ti ti-shopping-bag" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">13:30 〜 14:30</div>
+          <div class="tl-name">金沢駅でお土産購入</div>
+          <p class="tl-desc">金沢駅「あんと」「百番街」でお土産を。金箔関連商品、加賀棒茶、福梅（和菓子）、ルビーロマンぶどうジャムなどが人気。</p>
+          <div class="tl-tags"><span class="tag tag-sight">お土産</span></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-dot dot-gray"><i class="ti ti-train" aria-hidden="true"></i></div>
+        <div class="tl-card">
+          <div class="tl-time">14:30 以降</div>
+          <div class="tl-name">金沢駅 出発・帰路</div>
+          <p class="tl-desc">金沢駅から小松空港へ移動し、飛行機で羽田空港へ。</p>
+          <div class="tl-tags"><span class="tag tag-bus">新幹線</span></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div id="info" class="day-panel">
+    <div class="day-header">
+      <span class="day-badge">INFO</span>
+      <p class="day-title">旅のメモ・移動情報</p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px; color: var(--color-text-primary);">🚌 市内移動について</p>
+      <p style="font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; margin: 0;">
+        レンタカーなしでも主要観光地はバスで回れます。<br>
+        <strong>城下まち金沢周遊バス</strong>（1日乗り放題600円）が便利。<br>
+        東茶屋街・兼六園・武家屋敷・21美など主要スポットをカバー。<br>
+        ホテル〜兼六園・金沢城は徒歩5分圏内と絶好のロケーション。
+      </p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px; color: var(--color-text-primary);">🏨 ホテル情報</p>
+      <p style="font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; margin: 0;">
+        <strong>金沢白鳥路 ホテル山楽</strong><br>
+        住所：石川県金沢市丸の内6-3<br>
+        TEL：076-216-7878<br>
+        ✓ 兼六園・金沢城まで徒歩約5分<br>
+        ✓ 温泉大浴場あり（朝風呂可）<br>
+        ✓ 朝食付き2泊
+      </p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px; color: var(--color-text-primary);">🌧️ 6月の金沢（梅雨）について</p>
+      <p style="font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; margin: 0;">
+        6月は梅雨時期です。折りたたみ傘は必須。ただし金沢の雨は情緒があり、庭園や茶屋街はしっとりした美しさが楽しめます。<br>
+        花菖蒲（兼六園）・紫陽花が見頃の季節。気温は20〜25℃程度で過ごしやすいです。
+      </p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 12px;">
+      <p style="font-size: 13px; font-weight: 500; margin: 0 0 10px; color: var(--color-text-primary);">🍽️ グルメメモ</p>
+      <p style="font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; margin: 0;">
+        <strong>食べたいもの：</strong>ノドグロ（のど黒）、甘エビ、加能ガニ（時期外だがカニ料理あり）、治部煮、金沢おでん、金箔スイーツ、ひゃくまんさんグッズ<br>
+        <strong>おすすめ：</strong>近江町市場の朝海鮮・昼海鮮丼。人気店は整理券が出ることも。11時前に行くのが吉。<br>
+        <strong>注意：</strong>市場の一部店舗は現金のみ。
+      </p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-num">2泊</div>
+        <div class="summary-label">宿泊日数</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-num">12+</div>
+        <div class="summary-label">観光スポット</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-num">3</div>
+        <div class="summary-label">茶屋街</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchDay(id) {
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['d1','d2','d3','info'].indexOf(id);
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+}
+</script>
